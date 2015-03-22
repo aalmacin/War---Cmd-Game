@@ -14,6 +14,9 @@ void Game::start()
 	createCards();
 	bool play = true;
 	do {
+		playerCards = 0;
+		computerCards = 0;
+
 		string key;
 
 		cout << "Play War? (1 to play, any key to exit): ";
@@ -43,13 +46,16 @@ void Game::play()
 		assignWin(winner);
 
 		if (winner == 'W') {
-			i += 6;
-			playWar(i);
 			bool war = true;
+			const int CARD_COUNT = 6;
+			int cardCount = 2;
 			do {
-				cout << "War time" << endl;
-				war = false;
-			} while (war);
+				i += CARD_COUNT;
+				cardCount += CARD_COUNT;
+
+				winner = playWar(i);
+				assignWin(winner, cardCount);
+			} while (winner == 'W');
 		}
 
 
@@ -91,21 +97,23 @@ void Game::assignWin(char winner, int cardCount) {
 	switch (winner) {
 	case 'P':
 		playerCards += cardCount;
-		cout << "You Win this round. 2 cards." << endl << endl;
+		cout << "You Win this round. " << cardCount << " cards." << endl << endl;
 		break;
 	case 'C':
 		computerCards += cardCount;
-		cout << "Computer Win this round. 2 cards." << endl << endl;
+		cout << "Computer Win this round. " << cardCount << " cards." << endl << endl;
 		break;
 	case 'W':
 		cout << "War!!!" << endl << endl;
 		cout << "Draw 3 cards each." << endl;
+		cin.get();
 		break;
 	}
 }
 
-void Game::playWar(int index) {
-
+char Game::playWar(int index) {
+	char winner = checkWar(index);
+	return winner;
 }
 
 string Game::displayCard(Card card) {

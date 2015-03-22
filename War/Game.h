@@ -44,6 +44,6 @@ private:
 	void play();
 	char checkWar(int);
 	void assignWin(char, int=2);
-	void playWar(int);
+	char playWar(int);
 };
 
