@@ -16,6 +16,9 @@ struct Card
 {
 	int number;
 	Suit suit;
+	bool operator < (const Card&) const;
+	bool operator > (const Card&) const;
+	bool operator == (const Card&) const;
 };
 
 class Game
@@ -40,7 +43,7 @@ private:
 	string getSpecial(int);
 	string getSuit(int);
 	void shuffleCards();
-	string displayCard(Card);
+	string displayCard(const Card);
 	void play();
 	char checkWar(int);
 	void assignWin(char, int=2);

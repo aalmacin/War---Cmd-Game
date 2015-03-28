@@ -81,16 +81,15 @@ char Game::checkWar(int index) {
 	cout << "Your Card \t" << "Computer's Card" << endl;
 	cout << formattedPlayerCard << "\t" << formattedComputerCard << endl << endl;
 
-	if (playerCard.number > computerCard.number) {
+	if (playerCard > computerCard) {
 		return 'P';
 	}
-	else if (computerCard.number > playerCard.number) {
+	else if (playerCard < computerCard) {
 		return 'C';
 	}
 	else {
 		return 'W';
 	}
-
 }
 
 void Game::assignWin(char winner, int cardCount) {
@@ -116,7 +115,7 @@ char Game::playWar(int index) {
 	return winner;
 }
 
-string Game::displayCard(Card card) {
+string Game::displayCard(const Card card) {
 	return getSpecial(card.number) + " of " + getSuit(card.suit);
 }
 
@@ -173,4 +172,16 @@ string Game::getSuit(int num)
 		return "Clubs";
 		break;
 	}
+}
+
+bool Card::operator < (const Card &f) const { 
+	return number < f.number; 
+}
+
+bool Card::operator > (const Card &f) const { 
+	return number > f.number; 
+}
+
+bool Card::operator == (const Card &f) const { 
+	return number == f.number; 
 }
